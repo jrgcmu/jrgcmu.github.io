@@ -1,11 +1,12 @@
 /* overall */
 body {
-  margin: 2% 5% 2% 5%;
+  margin: 2% auto 2% auto;
+  width: 750px;
   font-size: normal;
   font-family: arial;
 }
 
-h1, h2 {
+h1 {
   font-size: large;
   color: darkblue;
   margin-bottom: 0px;
@@ -13,14 +14,17 @@ h1, h2 {
 }
 
 h2 {
+  font-size: large;
   font-style: italic;
   font-weight: normal;
-  padding-top: .25em;
+  color: darkblue;
+  margin-bottom: 0px;
+  padding-top: 0px;
 }
 
 /* title block */
 #header {
-  border-bottom: 1px dotted black;
+  border-bottom: 1px solid black;
 }
 
 #header h1 {
