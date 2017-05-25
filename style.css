@@ -45,19 +45,21 @@ h2 {
   margin-bottom: 0px;
 }
 
-/* spacing after headers */
-h1+p, h2+p, h1+ul, h2+ul, h1+h2 {
+/* tight spacing after headers */
+h1+p, h2+p, h1+h2, h1+ul, h2+ul, h1+.hang ul, h2+.hang ul  {
   padding-top: .5em;
   margin-top: 0px;
 }
 
-/* list spacing */
-ul {
+/* hanging indent */
+.hang ul {
     list-style: none inside none; 
     padding-left: 1em;
     text-indent: -1em;
     margin-left: 0em; 
 }
+
+/* all list spacing */
 li {
     padding-bottom: .5em;
 }
