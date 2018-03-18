@@ -51,6 +51,12 @@ h1+p, h2+p, h1+h2, h1+ul, h2+ul, h1+.hang ul, h2+.hang ul  {
   margin-top: 0px;
 }
 
+/* ... even with loose lists */
+li p {
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
 /* hanging indent */
 .hang ul {
     list-style: none inside none; 
