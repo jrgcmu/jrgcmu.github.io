@@ -1,7 +1,8 @@
 /* overall */
 body {
-  margin: 2% auto 2% auto;
-  width: 60%;
+  margin: 1% auto 1% auto;
+  padding: 1%;
+  width: 750px;
   font-size: normal;
   font-family: arial;
 }
