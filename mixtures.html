@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Uncovering hidden variables</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://revealjs.com/css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      .smallcaps{font-variant: small-caps;}
+      .line-block{white-space: pre-line;}
+      .column{display: inline-block;}
+  </style>
+  <link rel="stylesheet" href="https://revealjs.com/css/theme/black.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'https://revealjs.com/css/print/pdf.css' : 'https://revealjs.com/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="https://revealjs.com/lib/js/html5shiv.js"></script>
+  <![endif]-->
+  <style type="text/css">
+  .reveal p {text-align: left;}
+  .reveal ul {display: block;}
+  .intro p {text-align: center;}
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">Uncovering hidden variables</h1>
+</section>
+
+<section class="slide level1">
+
+<div class="intro">
+<p><span class="math inline">\(\Pi M E\)</span> seminar</p>
+<p>John Gardner</p>
+<p>Dept. of Economics</p>
+<p><a href="http://jrgcmu.github.io">jrgcmu.github.io</a></p>
+</div>
+</section>
+<section id="motivation" class="slide level1">
+<h1>Motivation</h1>
+<p>Does attending college increase wages?</p>
+<p>Most data show that</p>
+<p><span class="math display">\[E(\text{Wage} | \text{College}) 
+  - E(\text{Wage} | \text{No college})&gt;0\]</span></p>
+</section>
+<section class="slide level1">
+
+<p>“Correlation is not causation”</p>
+<p>Perhaps people who go to college are just more motivated:</p>
+<p><span class="math display">\[\begin{split}
+E(\text{Wage} | \text{College}, \text{Motivated}) \\
+ - E(\text{Wage} | \text{No college}, \text{Motivated}) \le 0
+\end{split}
+\]</span></p>
+</section>
+<section class="slide level1">
+
+<p>Wages and education are observable</p>
+<p>Motivation is not</p>
+<p>How can we control for unobservable motivation?</p>
+<p>We need to know the joint distribution of wages, education, and motivation</p>
+</section>
+<section id="latent-variable-models" class="slide level1">
+<h1>Latent variable models</h1>
+<p>Suppose we have a random variable <span class="math inline">\(X\)</span></p>
+<p>With data, we can estimate <span class="math inline">\(P(X=x)\)</span></p>
+</section>
+<section class="slide level1">
+
+<p>Now suppose that <span class="math inline">\(X\)</span> is related to a binary <em>latent variable</em> <span class="math inline">\(Z\)</span></p>
+<p>The observed probability distribution depends on some unobserved components:</p>
+<p><span class="math display">\[
+\begin{split}
+P(X=x) = P(Z=0) P(X=x|Z=0)  \\
++ P(Z=1) P(X=x|Z=1)
+\end{split}
+\]</span></p>
+<p>Can we use data to estimate the latent components of this?</p>
+</section>
+<section class="slide level1">
+
+<p>No.</p>
+<p>All we see is <span class="math inline">\(P(X)\)</span></p>
+<p>We have one equation:</p>
+<p><span class="math display">\[
+\begin{split}
+P(X=x) = P(Z=0) P(X=x|Z=0)  \\
++ P(Z=1) P(X=x|Z=1)
+\end{split}
+\]</span></p>
+<p>and three unknowns: <span class="math inline">\(P(Z=0)\)</span>, <span class="math inline">\(P(X=x|Z=0)\)</span>, and <span class="math inline">\(P(X=x|Z=1)\)</span></p>
+</section>
+<section class="slide level1">
+
+<p>The following would all be <em>observationally equivalent</em>:</p>
+<ul>
+<li><p><span class="math inline">\(Z\)</span> is never zero: <span class="math inline">\(P(Z=0)=0\)</span> and <span class="math display">\[P(X=x)=P(X=x|Z=1)\]</span></p></li>
+<li><p><span class="math inline">\(Z\)</span> is always zero: <span class="math inline">\(P(Z=0)=1\)</span> and <span class="math display">\[P(X=x)=P(X=x|Z=0)\]</span></p></li>
+<li><p><span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span> are unrelated: <span class="math inline">\(P(Z=0) \in (0,1)\)</span> and <span class="math display">\[P(X=x|Z=1) = P(X=x|Z=0)\]</span></p></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p>Now suppose we observe <span class="math inline">\(K\)</span> rvs: <span class="math inline">\(X_1, X_2, \dots, X_K\)</span></p>
+<p>And that our <span class="math inline">\(K\)</span> rvs are <em>independent</em> conditional on <span class="math inline">\(Z\)</span>:</p>
+<p><span class="math display">\[
+\begin{split}
+P(X_1=x_1, \dots, X_k=x_k | Z=z) \\
+= P(X_1=x_1 | Z=z) \cdots P(X_k=x_k | Z=z) \\
+= \prod_{k=1}^K P(X_k=x_k | Z=z)
+\end{split}
+\]</span></p>
+</section>
+<section class="slide level1">
+
+<p>Can we use data on <span class="math inline">\(K\)</span> observed variables to estimate the latent components <span class="math display">\[P(X_k=x_k | Z=z)\]</span> for every value of <span class="math inline">\(k\)</span> and <span class="math inline">\(z\)</span>?</p>
+<p>This question puzzled researchers for a long time</p>
+</section>
+<section class="slide level1">
+
+<p>These are known as <em>latent-class models</em></p>
+<p>Researchers have been estimating them for decades (we’ll see how later)</p>
+<p>E.g., a sociologist might assume that answers to a set of survey questions about opinions on gay marriage, abortion, gun control, etc. are all explained by an unobserved attitude or belief</p>
+</section>
+<section class="slide level1">
+
+<p>Researchers knew that their models gave them seemingly sensible estimates</p>
+<p>In simulations, estimates were usually close to the true latent distributions (which were determined by the researchers)</p>
+<p>But nobody knew when, or how, the latent probability distributions could be recovered from the observed ones</p>
+</section>
+<section id="identifiability-of-latent-variable-models" class="slide level1">
+<h1>Identifiability of latent-variable models</h1>
+<p>Recent research has shown when, and how, the latent components of these models can be recovered from the distributions of the observed variables</p>
+</section>
+<section class="slide level1">
+
+<p>In a seminal paper, <a href="https://projecteuclid.org/download/pdf_1/euclid.aos/1046294462">Hall and Zhou</a> (2003, Annals of Statistics) prove the following:</p>
+<p><strong>Theorem.</strong> If <span class="math inline">\(K \ge 3\)</span> and <span class="math inline">\(P(X_j=x_j, X_k = x_k) \ne P(X_j = x_j) P(X_k=x_k)\)</span> for all <span class="math inline">\(j\)</span> and <span class="math inline">\(k\)</span>, then <span class="math inline">\(P(X_j=x_j|Z=z)\)</span> and <span class="math inline">\(P(Z=z)\)</span> are uniquely determined for all <span class="math inline">\(k \in \{1, \dots, K\}\)</span> and <span class="math inline">\(z \in \{0, 1\}\)</span> (up to permutations of the labels).</p>
+</section>
+<section class="slide level1">
+
+<p>To see the idea behind their argument, recall that</p>
+<p><span class="math display">\[
+\begin{split}P(X_1=x_1,\dots,X_K=x_K) \\
+= \sum_{z} P(Z=z) \prod_k P(X_k=x_k | Z=z)
+\end{split}
+\]</span></p>
+<p>For fixed <span class="math inline">\(x_1, \dots, x_k\)</span>, there are <span class="math inline">\(2K+1\)</span> unknowns (the distribution of each of the <span class="math inline">\(X_k\)</span> for each value of <span class="math inline">\(Z\)</span> and the distribution of <span class="math inline">\(Z\)</span>)</p>
+</section>
+<section class="slide level1">
+
+<p>If we sum this over <span class="math inline">\(X_1\)</span>, say, we get</p>
+<p><span class="math display">\[
+\begin{split}
+\sum_{x_1} P(X_1, \dots, X_k) = P(X_2, \dots, X_K) \\
+= \sum_z P(Z=z) \prod_{k \ge 2} P(X_k=x_k | Z=z)
+\end{split}
+\]</span></p>
+</section>
+<section class="slide level1">
+
+<p>By summing over different variables, we can obtain <span class="math inline">\(2^K-1\)</span> different combinations of distributions for the observed variables</p>
+<p>When <span class="math inline">\(K \ge 3\)</span>, the number equations is greater than the <span class="math inline">\(2K+1\)</span> unknowns</p>
+</section>
+<section class="slide level1">
+
+<p>If <span class="math inline">\(K=3\)</span>, e.g.,</p>
+<ul>
+<li><p>We can obtain 7 distributions: <span class="math inline">\(P(X_1, X_2, X_3)\)</span>, <span class="math inline">\(P(X_1, X_2)\)</span>, <span class="math inline">\(P(X_1, X_3)\)</span>, <span class="math inline">\(P(X_2, X_3)\)</span>, <span class="math inline">\(P(X_1)\)</span>, <span class="math inline">\(P(X_2)\)</span>, <span class="math inline">\(P(X_3)\)</span></p></li>
+<li><p>But we have 7 unknowns: <span class="math inline">\(P(Z=0)\)</span> and 2 latent distributions <span class="math inline">\(P(X_k|Z=z)\)</span> for each of 3 variables</p></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p><a href="https://projecteuclid.org/download/pdfview_1/euclid.aos/1250515381">Allman, Matias, and Rhodes</a> (2009, Annals of Statistics) use a powerful theorem by <a href="https://core.ac.uk/download/pdf/82529515.pdf">Kruskal</a> (1977, Linear Algebra and its Applications) to extend this to latent variables that take more than two values:</p>
+<p><span class="math display">\[
+\begin{split}
+P(X_1=x_1,\dots,X_K=x_K) \\
+ = \sum_{i=1}^r P(Z=r) \prod_{k=1}^K P(X_k=x_k|Z=r)
+\end{split} 
+\]</span></p>
+</section>
+<section class="slide level1">
+
+<p>Work to establish identifiability in more general cases is ongoing</p>
+<p>E.g., the requirement that the observed variables are independent conditional on <span class="math inline">\(Z\)</span> might be too strong</p>
+</section>
+<section class="slide level1">
+
+<p><a href="https://pdfs.semanticscholar.org/6448/2871e705ffa443c18e06237703090d48acda.pdf">Kasahara and Shimotsu</a> (2009, Econometrica) extend these results to allow the observed variables to be related through a Markov structure, conditional on the latent variable</p>
+<p><span class="math display">\[
+\begin{split}
+P(X_1=x_1,\dots,X_K=x_K | Z=z) \\
+= \prod_{k=2}^K P(X_k=x_k | Z=z, X_{k-1}=x_{k-1}) P(X_1=x_1|Z=z)
+\end{split}
+\]</span></p>
+</section>
+<section id="estimation-the-em-algorithm" class="slide level1">
+<h1>Estimation: The EM algorithm</h1>
+<p>So far, we have focused on <em>identifiability</em> from knowledge of the population distributions of the observed variables</p>
+<p>How can latent-variable models be <em>estimated</em> from sample data?</p>
+</section>
+<section class="slide level1">
+
+<p>The most common method is via the <em>Expectation-Maximization</em> algorithm, due to <a href="http://web.mit.edu/6.435/www/Dempster77.pdf">Dempster, Laird, and Rubin</a> (1977, Journal of the Royal Statistical Society)</p>
+<p>Suppose that we have observations on <span class="math inline">\(X_1, \dots, X_K\)</span> for <span class="math inline">\(N\)</span> individuals</p>
+</section>
+<section class="slide level1">
+
+<p>Let <span class="math inline">\(q_i\)</span> be the probability that the unobserved variable <span class="math inline">\(Z_i=0\)</span> for observation <span class="math inline">\(i\)</span>, conditional on that observation’s realizations of <span class="math inline">\(X_1,\dots,X_K\)</span></p>
+<p>Using Bayes’ rule, we can show that <span class="math inline">\(q_i\)</span> is a function of the latent distributions:</p>
+<p><span class="math display">\[
+\begin{aligned}
+q_i &amp;= \frac{P(X_{1i}=x_{1i},\dots,X_{Ki}=x_{Ki},Z_i=z)}
+       {P(X_{1i}=x_{1i},\dots,X_{Ki}=x_{Ki})} \\
+&amp;= \frac{P(Z_i=0) \prod_k P(X_{ki}=x_{ki} | Z_i=0)}
+   {\sum_z P(Z_i=z) \prod_k P(X_{ki}=x_{ki} | Z_i=z)}
+\end{aligned}
+\]</span></p>
+</section>
+<section class="slide level1">
+
+<p>The EM algorithm iterates between two steps</p>
+<p>In the E(xpectation) step, we use a guess of <span class="math inline">\(q_i\)</span> to find the expected (log) likelihood of the observed data: <span class="math display">\[
+\begin{split}
+L = \sum_{i=1}^N \bigg[ q_i \sum_k \log P(X_{ki}=x_{ki} | Z_i=0) \\
++ (1-q_i) \sum_k \log P(X_{ki}=x_{ki} | Z_i=1) \bigg]
+\end{split}
+\]</span></p>
+</section>
+<section class="slide level1">
+
+<p>In the M(aximization) step, we choose the values of <span class="math display">\[P(X_{k}=x_k | Z_i=z)\]</span> that maximize <span class="math inline">\(L\)</span></p>
+<p>We use these values to form a new guess of <span class="math inline">\(q_i\)</span></p>
+<p>We iterate between these steps until our estimates converge</p>
+</section>
+<section id="simulation" class="slide level1">
+<h1>Simulation</h1>
+<ul>
+<li><span class="math inline">\(X_1,\dots,X_4\)</span>, each taking 4 possible values</li>
+<li><span class="math inline">\(Z \in \{1, 2\}\)</span></li>
+<li><span class="math inline">\(N=500\)</span></li>
+<li>R code available online</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p>True distribution of <span class="math inline">\(Z\)</span>:</p>
+<pre><code>&gt; pz
+[1] 0.7 0.3</code></pre>
+<p>Estimates:</p>
+<pre><code>&gt; pi
+[1] 0.3159422 0.6840578</code></pre>
+</section>
+<section class="slide level1">
+
+<p>True distribution of <span class="math inline">\(P(X_k | Z=1)\)</span>:</p>
+<pre><code>&gt; px1
+     px11 px21 px31 px41
+[1,]  0.1 0.50  0.3 0.10
+[2,]  0.2 0.25  0.2 0.80
+[3,]  0.3 0.20  0.1 0.05
+[4,]  0.4 0.05  0.4 0.05</code></pre>
+<p>Estimates:</p>
+<pre><code>&gt; prob2
+          [,1]       [,2]      [,3]       [,4]
+[1,] 0.0724729 0.51293214 0.3236297 0.08210373
+[2,] 0.1801815 0.23980845 0.1835646 0.81299439
+[3,] 0.3366125 0.20966098 0.1037317 0.05529881
+[4,] 0.4107331 0.03759843 0.3890739 0.04960307</code></pre>
+</section>
+<section class="slide level1">
+
+<p>True distribution of <span class="math inline">\(P(X_k | Z=2)\)</span>:</p>
+<pre><code>&gt; px2
+     px12 px22 px32 px42
+[1,]  0.2  0.3  0.5  0.4
+[2,]  0.2  0.4  0.2  0.2
+[3,]  0.2  0.2  0.2  0.2
+[4,]  0.4  0.1  0.1  0.2</code></pre>
+<p>Estimates:</p>
+<pre><code>&gt; prob1
+          [,1]      [,2]       [,3]      [,4]
+[1,] 0.2981149 0.2843557 0.51889884 0.4533979
+[2,] 0.1905647 0.3836419 0.18404021 0.1604538
+[3,] 0.1505027 0.1975006 0.22444383 0.1519697
+[4,] 0.3608177 0.1345019 0.07261711 0.2341785</code></pre>
+</section>
+    </div>
+  </div>
+
+  <script src="https://revealjs.com/lib/js/head.min.js"></script>
+  <script src="https://revealjs.com/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'https://revealjs.com/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'https://revealjs.com/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://revealjs.com/plugin/math/math.js', async: true },
+          { src: 'https://revealjs.com/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
