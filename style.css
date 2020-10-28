@@ -21,8 +21,9 @@ h1 {
   font-size: large;
   color: darkblue;
   margin-bottom: 0px;
-  padding-top: 1em;
+  padding-top: 1.5em;
 }
+
 
 h2 {
   font-size: large;
@@ -30,15 +31,38 @@ h2 {
   font-weight: normal;
   color: darkblue;
   margin-bottom: 0px;
-  padding-top: 0px;
+  padding-top: .5em;
 }
 
-/* title block */
+/* nav */
+
+#TOC {
+  text-align: center;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  }
+  
+/* use for automatically generated TOC via --toc:true
+#TOC ul {
+  padding: 0px 0px 0px 0px;
+}
+  
+#TOC li {
+  list-style-type: none;
+  display: inline;
+  padding-right: 2em;
+  padding-left: 0em;
+  margin-left: 0em;
+}
+*/
+
+
 
 /* title block */
 
 #title-block-header {
-  border-bottom: 1px solid black;
+  text-align: center;
+  padding-bottom: 1.5em;
 }
 
 #title-block-header h1 {
