@@ -6,51 +6,100 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Computing resources for grad students (and other economists)</title>
   <style>
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
-  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Computing resources for grad students (and other economists)</h1>
+<h1 class="title">Computing resources for grad students (and other
+economists)</h1>
 </header>
 <h1 id="software">Software</h1>
 <h2 id="stata">Stata</h2>
 <ul>
-<li>German Rodriguez’s <a href="https://data.princeton.edu/stata/">Stata tutorial</a> is a great place to get started learning Stata</li>
-<li>Christopher Baum’s article <a href="http://fmwww.bc.edu/EC-P/wp612.pdf">A Little Bit of Stata Programming Goes a Long Way</a> provides a crash course on some more advanced Stata programming techniques</li>
-<li>For even more about Stata programming, I recommend Baum’s book <em>An Introduction to Stata Programming</em></li>
-<li>Stata comes bundled with a comprehensive set of manuals, which can also be viewed <a href="https://www.stata.com/features/documentation/">online</a></li>
-<li>You can also browse the help file for a particular command by typing <code>help commandname</code> into the command window</li>
+<li>German Rodriguez’s <a href="https://grodri.github.io/stata/">Stata
+tutorial</a> is a great place to get started learning Stata</li>
+<li>Christopher Baum’s article <a
+href="http://fmwww.bc.edu/EC-P/wp612.pdf">A Little Bit of Stata
+Programming Goes a Long Way</a> provides a crash course on some more
+advanced Stata programming techniques</li>
+<li>For even more about Stata programming, I recommend Baum’s book
+<em>An Introduction to Stata Programming</em></li>
+<li>Stata comes bundled with a comprehensive set of manuals, which can
+also be viewed <a
+href="https://www.stata.com/features/documentation/">online</a></li>
+<li>You can also browse the help file for a particular command by typing
+<code>help commandname</code> into the command window</li>
 </ul>
 <h2 id="r">R</h2>
 <ul>
-<li>R itself can be downloaded for free from the <a href="https://www.r-project.org">R Project</a></li>
-<li>You may also be interested in using <a href="https://www.rstudio.com">R Studio</a>, a free programming environment that makes writing and running R code easier</li>
-<li>German Rodriguez also has an excellent <a href="https://data.princeton.edu/R">R tutorial</a></li>
-<li>Another nice tutorial is <a href="https://cran.r-project.org/doc/manuals/R-intro.pdf">An Introduction to R</a>, which also comes bundled with R itself</li>
-<li><em>A First Course in Statistical Programming with R</em> by Braun and Murdoch is a good introduction to more advanced projects in R</li>
-<li><a href="https://r4ds.had.co.nz"><em>R for Data Science</em></a> by Hadley Wickham provides a modern introduction to data analysis in R, and can be read online for free</li>
+<li>R itself can be downloaded for free from the <a
+href="https://www.r-project.org">R Project</a></li>
+<li>You may also be interested in using <a href="https://posit.co">R
+Studio</a>, a free programming environment that makes writing and
+running R code easier</li>
+<li>German Rodriguez also has an excellent <a
+href="https://grodri.github.io">R tutorial</a></li>
+<li>Another nice tutorial is <a
+href="https://cran.r-project.org/doc/manuals/R-intro.pdf">An
+Introduction to R</a>, which also comes bundled with R itself</li>
+<li><em>A First Course in Statistical Programming with R</em> by Braun
+and Murdoch is a good introduction to more advanced projects in R</li>
+<li><a href="https://r4ds.hadley.nz"><em>R for Data Science</em></a> by
+Hadley Wickham provides a modern introduction to data analysis in R, and
+can be read online for free</li>
 </ul>
 <h2 id="latex">LaTeX</h2>
 <ul>
-<li>The free <a href="http://www.tug.org/mactex/">MacTeX</a> (for macOS) and <a href="https://www.tug.org/protext/">proTeXt</a> (for Windows) packages contain everything you need to get started using LaTeX (including a LaTeX document editor and underlying compiler)</li>
-<li><a href="http://tug.ctan.org/info/lshort/english/lshort.pdf">The Not So Short Introduction to LaTeX <span class="math inline">\(2_\epsilon\)</span></a> is a classic introduction to LaTeX</li>
-<li><a href="http://lyx.org">LyX</a> allows you to use a graphical interface to produce documents via LaTeX, although LyX is easier to use if you already know LaTeX, and it is often easier to work with LaTeX directly</li>
+<li>The free <a href="http://www.tug.org/mactex/">MacTeX</a> (for macOS)
+and <a href="https://miktex.org">MiKTeX</a> (for Windows/macOS/Linux)
+packages contain everything you need to get started using LaTeX
+(including a LaTeX document editor and underlying compiler)</li>
+<li><a href="http://tug.ctan.org/info/lshort/english/lshort.pdf">The Not
+So Short Introduction to LaTeX <span
+class="math inline">\(2_\epsilon\)</span></a> is a classic introduction
+to LaTeX</li>
+<li><a href="http://lyx.org">LyX</a> allows you to use a graphical
+interface to produce documents via LaTeX (although LyX is easier to use
+if you already know LaTeX, and it is often easier to work with LaTeX
+directly)</li>
 </ul>
 <h1 id="datasets">Datasets</h1>
 <ul>
-<li>The <a href="https://ipums.org">Integrated Public Use Microdata Samples</a> (IPUMS) makes it easy to download the Census, American Community Survey, Current Population Survey, and other data</li>
-<li>The <a href="https://www.nlsinfo.org/investigator/pages/login.jsp">NLS investigator</a> provides an interface for downloading data from the <a href="https://www.nlsinfo.org">National Longitudinal Surveys</a>, which include the 1979 and 1997 National Longitudinal Surveys of Youth, as well as additional surveys of children and young and old men and women</li>
-<li>There is also an interface for downloading data from the <a href="https://psidonline.isr.umich.edu/default.aspx">Panel Study of Income Dynamics</a> (PSID)</li>
-<li>The <a href="https://www.icpsr.umich.edu">Inter-university Consortium for Political and Social Research</a> (ICPSR) maintains a searchable collection of datasets on many different topics</li>
+<li>The <a href="https://ipums.org">Integrated Public Use Microdata
+Samples</a> (IPUMS) makes it easy to download the Census, American
+Community Survey, Current Population Survey, and other data</li>
+<li>The <a
+href="https://www.nlsinfo.org/investigator/pages/login.jsp">NLS
+investigator</a> provides an interface for downloading data from the <a
+href="https://www.nlsinfo.org">National Longitudinal Surveys</a>, which
+include the 1979 and 1997 National Longitudinal Surveys of Youth, as
+well as additional surveys of children and young and old men and
+women</li>
+<li>There is also an interface for downloading data from the <a
+href="https://psidonline.isr.umich.edu/default.aspx">Panel Study of
+Income Dynamics</a> (PSID)</li>
+<li>The <a href="https://www.icpsr.umich.edu">Inter-university
+Consortium for Political and Social Research</a> (ICPSR) maintains a
+searchable collection of datasets on many different topics</li>
 </ul>
 </body>
 </html>

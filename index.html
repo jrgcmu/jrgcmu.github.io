@@ -8,10 +8,15 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
   </style>
   <link rel="stylesheet" type="text/css" href="style.css">
   <!--[if lt IE 9]>
@@ -45,9 +50,17 @@ University, MS 38677-01848</p>
 <div class="hang">
 <ul>
 <li><p>“<a
+href="https://journals.sagepub.com/doi/abs/10.1177/1536867X231162021?journalCode=stja">Stata
+tip 149: Weighted estimation of fixed-effects and first-differences
+models</a>.” 2023. Stata Journal, 23 (1):276-280.</p></li>
+<li><p>“<a
+href="https://journal.r-project.org/articles/RJ-2022-048/">did2s:
+Two-Stage Difference-in-Differences</a>.” With Kyle Butts. 2022. R
+Journal, 14(3): 162-173.</p></li>
+<li><p>“<a
 href="https://onlinelibrary.wiley.com/doi/full/10.1111/ecin.13081">Recreational
 marijuana legalization and admission to the foster-care system</a>.”
-With Bright Osei. Economic Inquiry, forthcoming.</p></li>
+With Bright Osei. 2022. Economic Inquiry, 40 (3):311-1334.</p></li>
 <li><p>“<a
 href="https://www.tandfonline.com/doi/full/10.1080/07474938.2020.1735748">Identification
 and Estimation of Average Causal Effects when Treatment Status is
@@ -92,6 +105,10 @@ and Wages: New Evidence from the African American Great Migration</a>.”
 <h2 id="working-papers">Working papers</h2>
 <div class="hang">
 <ul>
+<li><p>“<a href="1sdd.pdf">One-stage robust difference-in-difference
+regression</a>”</p></li>
+<li><p>“<a href="StructuralBounds2.pdf">Structural bounds on group
+differences in treatment effects</a>”</p></li>
 <li><p>“<a href="fmig1.pdf">Immigration displaces women</a>”</p></li>
 <li><p>“<a href="2sdd_current.pdf">Two-stage differences in
 differences</a>” (<a href="2sdd_weai.pdf">Some slides</a>, <a
@@ -124,6 +141,8 @@ href="202Syl.pdf">syllabus</a>)</li>
 <h1 id="resources">Resources</h1>
 <ul>
 <li><a href="resources.html">Computing resources for grad
+students</a></li>
+<li><a href="mathresources.html">Math resources for grad
 students</a></li>
 <li>Distances between US metropolitan areas in kilometers (<a
 href="distances.csv.zip">zipped csv</a>, <a
