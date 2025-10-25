@@ -244,7 +244,7 @@ run the current line by clicking on the <code>do</code> command or the
 entire file by clicking on <code>Execute (do)</code> from the dropdown
 next to the <code>do</code> button. If you’re old school, you can also
 write your do files in an external editor and run them by typing
-<code>do filename.do</code> in the <em>command</em> pane.</p>
+<code>do filename.do</code> in the command pane.</p>
 <p>Before you run your do file, you need to tell Stata the directory the
 file is saved in, which you can do using</p>
 <pre><code>cd &quot;path/to/file&quot;</code></pre>
@@ -298,8 +298,8 @@ contents of the macro <code>path</code>. Note the weird quotation marks.
 The double quotes <code>&quot;&quot;</code> tell Stata that we’re working with a
 <em>string</em>, and the `<code>path&#39;</code>tells Stata that string is
 the contents of the local macro <code>path</code> (note that this is a
-backtick <code>`</code> followed by a normal single quote
-<code>&#39;</code>) . This is called <em>dereferencing</em> the
+backtick “<code>`</code>” followed by a normal single quote
+“<code>&#39;</code>”) . This is called <em>dereferencing</em> the
 macro.</p></li>
 <li><p><code>capture log filename using filename.log, text replace</code>
 tells Stata to open a log named <code>filename.log</code>, save it as a
@@ -341,11 +341,11 @@ thing1 thing2 thing3
 type enough of a command to uniquely identify it, so it sees
 <code>di</code> as <code>display</code>.</p>
 <p>This is known as <em>dereferencing</em> the macro. To dereference the
-macro, we surround it with a backtick <code>`</code> followed by a
-single quote <code>&#39;</code>. In the example above, if we don’t surround
-<code>`macro1&#39;</code> in quotes, Stata thinks we’re asking it to display
-the variables named <code>thing1</code>, <code>thing2</code> and
-<code>thing3</code>, which don’t exist. We don’t need to do this for
+macro, we surround it with a backtick “<code>`</code>” followed by a
+single quote “<code>&#39;</code>”. In the example above, if we don’t
+surround <code>`macro1&#39;</code> in quotes, Stata thinks we’re asking it
+to display the variables named <code>thing1</code>, <code>thing2</code>
+and <code>thing3</code>, which don’t exist. We don’t need to do this for
 <code>`macro2&#39;</code> because it is numeric.</p>
 <p>You can add to a macro iteratively, as in:</p>
 <pre class='stata'>. local macro1 `macro1' thing4
@@ -695,7 +695,7 @@ your dataset, you could use any of the following:</p>
 drop x*
 keep y* z*</code></pre>
 <p>The syntax <code>x*</code> means “match anything starting with
-<code>x</code>”.</p>
+<code>x</code>.”</p>
 <p>If you wanted to drop a subset of observations, say those where
 <code>y1 &lt; 0</code>, you could use</p>
 <pre><code>drop if y1 &lt; 0
@@ -780,8 +780,8 @@ command:</p>
 replace z1 = 1 if inlist(z1, 4, 5)</code></pre>
 <p>or <code>recode</code>:</p>
 <pre><code>recode z1 (1 2 3 = 0) (4 5 = 1)</code></pre>
-<p>We can use the <em>indicator function</em>, which takes the value 1
-if <code>(expression)</code> is true, and zero otherwise:</p>
+<p>We can also use the <em>indicator function</em>, which takes the
+value 1 if <code>(expression)</code> is true, and zero otherwise:</p>
 <pre><code>replace z1 = (z1==4 | z1==5)</code></pre>
 <p><strong>Note.</strong> Our example data don’t have any missing
 values, but if they did, this could have caused a problem, because the
@@ -793,7 +793,7 @@ observation is not missing (<code>mi</code> is short for
 <pre><code>replace z1 = (z1==4 | z1==5) if !mi(z1)</code></pre>
 <p>Stata stores missing values as large numbers, and refers to these
 values as “<code>.</code>” (in fact, we can replace <code>!mi(z)</code>
-with <code>if z &lt;= .</code>). Hence, a condition like
+with <code>if z &lt; .</code>). Hence, a condition like
 <code>y1 &gt;= 5</code> will also evaluate to true if <code>y1</code> is
 missing, so to truncate <code>y1</code> from above at 5, we should use
 one of</p>
@@ -911,14 +911,14 @@ data. The merge creates a new variable named <code>_merge</code> that
 indicates whether an observation was matched during the merge. We can
 use <code>drop if _merge!=3</code> to eliminate observations that didn’t
 have a match in both datasets. You will get an error if you try to do
-another merge without dropping this.</p>
+another merge without dropping this variable.</p>
 <p>Now suppose that our <code>x</code> and <code>y</code> variables
 (<code>x1</code>, <code>x2</code>, etc.) refer to observations on the
 same variables for different units at different points in time (i.e.,
 <em>panel data</em>). Many panel data estimators require the data to be
 in a <em>long form</em>, with one column per variable, and multiple rows
 per unit, each corresponding to a different time period. To put our data
-into long form, we can use <code>reshape long</code>.</p>
+into long form, we can use <code>reshape long</code>:</p>
 <pre class='stata'>. gen id = _n
 
 . reshape long x y, i(id) j(year)
@@ -983,24 +983,25 @@ that we could add to our original (or some other) dataset?</p>
 >   (sd) y1_sd = y1 y2_sd = y2 y3_sd = y3 ///
 >   (count) y1_n = y1 y2_n = y2 y3_n = y3, by(z1 z2)
 
-. list y1_mean in 1/5
+. list y1_mean y1_sd z1 z2 in 1/5
 
-     ┌───────────┐
-     │   y1_mean │
-     ├───────────┤
-  1. │         . │
-  2. │ -.2085993 │
-  3. │ -.3881125 │
-  4. │  .6914923 │
-  5. │   .641409 │
-     └───────────┘
+     ┌────────────────────────────────┐
+     │   y1_mean      y1_sd   z1   z2 │
+     ├────────────────────────────────┤
+  1. │         .          .    1    1 │
+  2. │ -.2085993    2.67239    1    2 │
+  3. │ -.3881125          .    1    3 │
+  4. │  .6914923   1.573746    1    4 │
+  5. │   .641409   .2880112    1    5 │
+     └────────────────────────────────┘
 
 . restore
 </pre>
 <p>If we wanted, we could save this and merge it with another dataset.
 In the above, <code>///</code> allows you to continue a command on the
 next line, and I used the <code>list</code> command to print the first
-five observations of <code>mean_y1</code>.</p>
+five observations of <code>mean_y1</code>, <code>sd_y1</code>,
+<code>z1</code> and <code>z2</code>.</p>
 <p>Here is a little loop-and-macro trick to avoid having to type all of
 these new variable names:</p>
 <pre><code>local mean (mean)
@@ -1133,9 +1134,9 @@ options for customizing your graphs (you can also type
 <code>help graph</code>, or use the graphical interface to explore them
 in case you forget the syntax).</p>
 <p>Below are some more complicated examples that I adapted from <a href="https://r4ds.hadley.nz"><em>R for Data Science</em></a>. Here is a
-scatterplot of <code>y1</code> on <code>x1</code>, with the color of the
+scatterplot of <code>y1</code> on <code>x1</code> with the color of the
 points determined by <code>z1</code>, a linear fit with confidence
-intervals, with labeled axes:</p>
+intervals, and labeled axes:</p>
 <pre class='stata'>. levelsof z1, local(z1)
 1 2 3 4 5
 
@@ -1216,7 +1217,7 @@ command makes separate bars for each value of <code>z1</code>. The
 “sub-bars” instead of putting them side by side.</p>
 <p>Finally, here are kernel density estimates of <code>y1</code> by
 <code>group</code>, using a <code>recast</code> trick to fill the graphs
-(I don’t recall where I learned this trick):</p>
+(I don’t recall where I learned this):</p>
 <pre class='stata'>. graph tw (kdensity y1 if group==1, recast(area) color(%50)) ///
 >   (kdensity y1 if group==2, recast(area) color(%50)), ///
 >   legend(order(1 "1" 2 "2")) scheme(white_tableau)
@@ -1250,7 +1251,7 @@ into the same image, as in the examples above. You can also use the
 graphs in Stata’s format in order to make a table of graphs (or go to
 <code>Graphics &gt; Table of graphs</code>).</p>
 <p>We can also use Stata to plot functions. As an example, here are the
-densities normal distributions with different variances:</p>
+densities for normal distributions with different variances:</p>
 <pre><code>twoway (function normalden(x, 1), range(-3 3)) ///  
   (function normalden(x, 2), range(-3 3)),  ///
   scheme(white_tableau) ///
@@ -1265,7 +1266,7 @@ xJRaKAMCIAACICA/AngLQ359Co9AAARqEvjHtsva+MXIruGIX9Skg88gAAIgIHoCrcL83nyyjVbmXzZe
 distributions</figcaption>
 </figure>
 <h2 id="regression-basics">Regression basics</h2>
-<p>Stata has extensive faculties for regressions and other statistical
+<p>Stata has extensive facilities for regressions and other statistical
 and econometric estimators. Here, we will only touch on the
 essentials.</p>
 <p>You can run a regression using the <code>regress</code> command:</p>
@@ -1329,9 +1330,9 @@ Linear regression                               Number of obs     =         50
 </pre>
 <p>You can use <code>test</code> to perform hypothesis tests on the most
 recently estimated model. Stata stores the coefficients and standard
-errors as scalars labelled <code>_b[varname]</code> and _se[varname],
-which you can use with the <code>nlcom</code> command to test nonlinear
-hypotheses:</p>
+errors as scalars labelled <code>_b[varname]</code> and
+<code>_se[varname]</code>, which you can use with the <code>nlcom</code>
+command to test nonlinear hypotheses:</p>
 <pre class='stata'>. reg y1 x*
 
       Source │       SS           df       MS      Number of obs   =        50
