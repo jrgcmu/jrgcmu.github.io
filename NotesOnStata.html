@@ -699,7 +699,6 @@ keep y* z*</code></pre>
 <p>If you wanted to drop a subset of observations, say those where
 <code>y1 &lt; 0</code>, you could use</p>
 <pre><code>drop if y1 &lt; 0
-drop if inrange(y1, 0, .)
 keep if y1 &gt;= 0
 keep if inrange(y1, 0, .)</code></pre>
 <p>The command <code>inrange(y1, a, b)</code> selects observations where
@@ -795,9 +794,9 @@ observation is not missing (<code>mi</code> is short for
 <p>Stata stores missing values as large numbers, and refers to these
 values as “<code>.</code>” (in fact, we can replace <code>!mi(z)</code>
 with <code>if z &lt;= .</code>). Hence, a condition like
-<code>y1&gt;=5</code> will also evaluate to true if <code>y1</code> is
-missing, so if to truncate <code>y1</code> from above at 5, we should
-use one of</p>
+<code>y1 &gt;= 5</code> will also evaluate to true if <code>y1</code> is
+missing, so to truncate <code>y1</code> from above at 5, we should use
+one of</p>
 <pre><code>replace y1=5 if y1&gt;=5 &amp; !mi(y1)
 replace y1=5*(y1&gt;=5 &amp; y1&lt;.)
 replace y1=5 if inrange(y1, 5, .)</code></pre>
