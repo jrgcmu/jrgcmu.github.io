@@ -768,10 +768,13 @@ of <code>z1</code>, you could use:</p>
 ─────────────┼─────────────────────────────────────────────────────────
           y1 │          7   -.2600435    1.179715  -2.152447   1.131644
 </pre>
-<p>The <code>bysort</code> command sorts the data in order of one or
-more categorical variables, then performs an action within the levels of
-those variables. If you wanted summaries within the levels defined by
-<code>z1</code> and <code>z2</code>, you could use
+<p>Using <code>bysort</code> is a convenient way of using the
+<code>by</code> prefix, which requires that the data are sorted. We
+could have also done this by typing <code>sort z1</code> followed by
+<code>by z1: sum y1</code>. Sometimes the <code>sort</code> command is
+useful on its own (there is also <code>gsort</code>, which allows you to
+sort in descending order). If we wanted summaries within the levels
+defined by <code>z1</code> and <code>z2</code>, we could use
 <code>bysort z1 z2: sum y1</code>.</p>
 <h2 id="transforming-data">Transforming data</h2>
 <p>In our data, the variable <code>z1</code> takes the values 1-5.
