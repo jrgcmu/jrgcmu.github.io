@@ -339,7 +339,9 @@ thing1 thing2 thing3
 </pre>
 <p>In the second line, we used the fact that Stata only requires you to
 type enough of a command to uniquely identify it, so it sees
-<code>di</code> as <code>display</code>.</p>
+<code>di</code> as <code>display</code>. You can see a list of all
+macros using <code>macro list</code> and the contents of a local macro
+by typing <code>macro list _macroname</code>.</p>
 <p>This is known as <em>dereferencing</em> the macro. To dereference the
 macro, we surround it with a backtick “<code>`</code>” followed by a
 single quote “<code>&#39;</code>”. In the example above, if we don’t
@@ -435,7 +437,7 @@ second entry
 <code>varlist</code> for lists of variables. We will see examples of
 this below.</p>
 <p>The syntax <code>1/3</code> means <code>1 2 3</code>. If we wanted to
-count backwards, we could use <code>3/1</code>, and we could use
+count backwards, we could use <code>3(-1)1</code>, and we could use
 <code>1(2)5</code> to count up in increments of 2.</p>
 <p>Alternatively, we can use <code>forvalues</code> instead of
 <code>foreach</code> when looping over numbers (below, I initialized
