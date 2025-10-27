@@ -3870,7 +3870,7 @@ cyl = 8 15.10000 3.999214</code></pre>
 <div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>d[<span class="fu">order</span>(d<span class="sc">$</span>z1), ]</span>
 <span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>d <span class="sc">|&gt;</span> <span class="fu">arrange</span>(z1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>If we wanted to sort according to <code>z1</code>, and then the value of <code>z2</code> within levels of <code>z1</code>, we could use <code>order(d$z1, d$z2)</code> or <code>arranage(z1, z2)</code>.</p>
+<p>If we wanted to sort according to <code>z1</code>, and then the value of <code>z2</code> within levels of <code>z1</code>, we could use <code>order(d$z1, d$z2)</code> or <code>arrange(z1, z2)</code>.</p>
 </section>
 <section id="transforming-data" class="level3">
 <h3 class="anchored" data-anchor-id="transforming-data">Transforming data</h3>
@@ -4433,13 +4433,13 @@ glm(formula = y1.bin ~ x1 + I(x1^2) + as.factor(z1), family = binomial(link = pr
 
 Coefficients:
                Estimate Std. Error z value Pr(&gt;|z|)
-(Intercept)     0.01550    0.42642   0.036    0.971
+(Intercept)     0.74569    0.47774   1.561    0.119
 x1             -0.16422    0.21318  -0.770    0.441
 I(x1^2)        -0.08172    0.13168  -0.621    0.535
-as.factor(z1)1  0.73018    0.60978   1.197    0.231
-as.factor(z1)3  0.48036    0.57754   0.832    0.406
-as.factor(z1)4 -0.14324    0.54733  -0.262    0.794
-as.factor(z1)5  0.18197    0.62399   0.292    0.771
+as.factor(z1)2 -0.73018    0.60978  -1.197    0.231
+as.factor(z1)3 -0.24982    0.58816  -0.425    0.671
+as.factor(z1)4 -0.87343    0.57885  -1.509    0.131
+as.factor(z1)5 -0.54821    0.66249  -0.828    0.408
 
 (Dispersion parameter for binomial family taken to be 1)
 
@@ -4459,10 +4459,10 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <pre><code>
  Term Contrast Estimate Std. Error      z Pr(&gt;|z|)   S  2.5 % 97.5 %
    x1    dY/dX  -0.0666      0.074 -0.899    0.368 1.4 -0.212 0.0785
-   z1    1 - 2   0.2663      0.210  1.266    0.205 2.3 -0.146 0.6785
-   z1    3 - 2   0.1819      0.214  0.850    0.395 1.3 -0.237 0.6012
-   z1    4 - 2  -0.0549      0.210 -0.262    0.794 0.3 -0.466 0.3565
-   z1    5 - 2   0.0704      0.241  0.293    0.770 0.4 -0.401 0.5419
+   z1    2 - 1  -0.2663      0.210 -1.266    0.205 2.3 -0.679 0.1459
+   z1    3 - 1  -0.0844      0.197 -0.429    0.668 0.6 -0.470 0.3010
+   z1    4 - 1  -0.3212      0.196 -1.636    0.102 3.3 -0.706 0.0637
+   z1    5 - 1  -0.1959      0.233 -0.841    0.400 1.3 -0.653 0.2607
 
 Type: response</code></pre>
 </div>
@@ -4479,19 +4479,19 @@ Type: response</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 ====================================================
-             z1 = 2  z1 = 1  z1 = 3  z1 = 4   z1 = 5
+             z1 = 1  z1 = 2  z1 = 3  z1 = 4   z1 = 5
 ----------------------------------------------------
-(Intercept)  -0.20    0.57    0.45   -0.16    -0.04 
-             (0.48)  (0.60)  (0.30)  (0.17)   (0.27)
-x1            0.17   -0.30   -0.46   -0.44 *   1.11 
-             (0.47)  (0.46)  (0.32)  (0.17)   (0.36)
-x2            0.02   -0.03   -0.12   -0.07    -0.43 
-             (0.61)  (0.81)  (0.29)  (0.15)   (0.35)
-x3           -0.02   -0.35   -0.27   -0.59 *  -1.68 
-             (0.49)  (0.52)  (0.35)  (0.20)   (0.65)
+(Intercept)   0.57   -0.20    0.45   -0.16    -0.04 
+             (0.60)  (0.48)  (0.30)  (0.17)   (0.27)
+x1           -0.30    0.17   -0.46   -0.44 *   1.11 
+             (0.46)  (0.47)  (0.32)  (0.17)   (0.36)
+x2           -0.03    0.02   -0.12   -0.07    -0.43 
+             (0.81)  (0.61)  (0.29)  (0.15)   (0.35)
+x3           -0.35   -0.02   -0.27   -0.59 *  -1.68 
+             (0.52)  (0.49)  (0.35)  (0.20)   (0.65)
 ----------------------------------------------------
-R^2           0.02    0.10    0.25    0.62     0.83 
-Adj. R^2     -0.46   -0.35   -0.07    0.48     0.67 
+R^2           0.10    0.02    0.25    0.62     0.83 
+Adj. R^2     -0.35   -0.46   -0.07    0.48     0.67 
 Num. obs.    10      10      11      12        7    
 ====================================================
 *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
@@ -4507,19 +4507,19 @@ Num. obs.    10      10      11      12        7
 <div class="cell-output cell-output-stdout">
 <pre><code>
 =====================================================
-             z1 = 2  z1 = 1  z1 = 3  z1 = 4    z1 = 5
+             z1 = 1  z1 = 2  z1 = 3  z1 = 4    z1 = 5
 -----------------------------------------------------
-(Intercept)  -0.20    0.57    0.45   -0.16     -0.04 
-             (0.62)  (0.81)  (0.43)  (0.19)    (0.39)
-x1            0.17   -0.30   -0.46   -0.44 **   1.11 
-             (1.00)  (0.66)  (0.50)  (0.09)    (0.62)
-x2            0.02   -0.03   -0.12   -0.07     -0.43 
-             (1.30)  (1.34)  (0.34)  (0.21)    (0.56)
-x3           -0.02   -0.35   -0.27   -0.59     -1.68 
-             (0.67)  (0.68)  (0.55)  (0.37)    (0.75)
+(Intercept)   0.57   -0.20    0.45   -0.16     -0.04 
+             (0.81)  (0.62)  (0.43)  (0.19)    (0.39)
+x1           -0.30    0.17   -0.46   -0.44 **   1.11 
+             (0.66)  (1.00)  (0.50)  (0.09)    (0.62)
+x2           -0.03    0.02   -0.12   -0.07     -0.43 
+             (1.34)  (1.30)  (0.34)  (0.21)    (0.56)
+x3           -0.35   -0.02   -0.27   -0.59     -1.68 
+             (0.68)  (0.67)  (0.55)  (0.37)    (0.75)
 -----------------------------------------------------
-R^2           0.02    0.10    0.25    0.62      0.83 
-Adj. R^2     -0.46   -0.35   -0.07    0.48      0.67 
+R^2           0.10    0.02    0.25    0.62      0.83 
+Adj. R^2     -0.35   -0.46   -0.07    0.48      0.67 
 Num. obs.    10      10      11      12         7    
 =====================================================
 *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
