@@ -3568,7 +3568,7 @@ cyl = 8 15.10000 3.999214</code></pre>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assign</span>(<span class="fu">paste0</span>(<span class="st">&quot;x&quot;</span>, i, <span class="st">&quot;_exp&quot;</span>), <span class="fu">exp</span>(<span class="fu">get</span>(<span class="fu">paste0</span>(<span class="st">&quot;x&quot;</span>, i))))</span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Alternatively, we could collect our matrices into a list, then work with the list. The <code>mget</code> function allows us <code>get</code> a list of multiple objects, all at once. Once we have a list, we can iterate through the elements of the list:</p>
+<p>Alternatively, we could collect our matrices into a list, then work with the list. The <code>mget</code> function allows us to <code>get</code> a list of multiple objects, all at once. Once we have a list, we can iterate through the elements of the list:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>matrices <span class="ot">&lt;-</span> <span class="fu">mget</span>(<span class="fu">paste0</span>(<span class="st">&quot;x&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>))</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {</span>
@@ -4114,7 +4114,7 @@ sd    1.04306947  0.868742  0.9878856</code></pre>
 1 -0.02562224 1.043069 0.149286 0.868742 -0.2757643 0.9878856 50</code></pre>
 </div>
 </div>
-<p>the sample size <code>n</code> gets special treatment here because it applies to the entire dataset, not any specific variable (alternatively, we could use <code>n=\(x) sum(is.na)</code> as above).</p>
+<p>the sample size <code>n</code> gets special treatment here because it applies to the entire dataset, not any specific variable (alternatively, we could use <code>n=\(x) sum(is.na(x))</code> as above).</p>
 <p>We could do this by <code>z1</code> and <code>z2</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">|&gt;</span> <span class="fu">group_by</span>(z1, z2) <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">num_range</span>(<span class="st">&quot;y&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>), </span>
@@ -4245,7 +4245,7 @@ z1           1          2          3          4          5
 <p>As you can see, base-R plots have a lot of options. You can read about them by typing <code>help(plot)</code>, or just search the web.</p>
 <p>There is another plotting system called ggplot2 which is part of the Tidyverse, is very versatile, and has much more accessible documentation. Roughly speaking, you specify the data, then the geometric objects, describing the aesthetics of the plot along the way. For example, we could make a basic histogram and scatterplot using, saving the latter as a PDF, using</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">dadta=</span>d, <span class="fu">aes</span>(<span class="at">x=</span>x1)) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span>
+<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>d, <span class="fu">aes</span>(<span class="at">x=</span>x1)) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span>
 <span id="cb143-2"><a href="#cb143-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d, <span class="fu">aes</span>(<span class="at">x=</span>x1, <span class="at">y=</span>y1)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
 <span id="cb143-3"><a href="#cb143-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;scatter.pdf&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
