@@ -3357,7 +3357,7 @@ Levels: 1 2 3</code></pre>
 </section>
 <section id="matrices" class="level3">
 <h3 class="anchored" data-anchor-id="matrices">Matrices</h3>
-<p>A matrix is a collection of numeric vectors that all have the same length. You can create a matrix using the <code>matrix</code> function. By default, R creates matrices by filling in the columns (this can be reversed using the <code>by.row = TRUE</code> option). All of the following create the same matrix:</p>
+<p>A matrix is a collection of vectors that all have the same type and length. You can create a matrix using the <code>matrix</code> function. By default, R creates matrices by filling in the columns (this can be reversed using the <code>by.row = TRUE</code> option). All of the following create the same matrix:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
@@ -3456,7 +3456,7 @@ r3  3  6  9</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(a, b, c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Since a data frame is a list, you can subset it using the same rules as for lists. For example, <code>dat[&quot;a&quot;]</code> returns a data frame consisting of only the variable <code>a</code>, while <code>dat[[&quot;a&quot;]]</code> and <code>dat$a</code> return the variable (vector) <code>a</code> itself. You can also subset dataframes like matrices, so <code>dat[2:3, c(&quot;a&quot;, &quot;c&quot;)]</code> returns a data frame consisting of the second and third observations on the variables <code>a</code> and <code>c</code>.</p>
+<p>Since a data frame is a list, you can subset it using the same rules as for lists. For example, <code>dat[&quot;a&quot;]</code> returns a data frame consisting of only the variable <code>a</code>, while <code>dat[[&quot;a&quot;]]</code> and <code>dat$a</code> return the variable (vector) <code>a</code> itself. You can also subset data frames like matrices, so <code>dat[2:3, c(&quot;a&quot;, &quot;c&quot;)]</code> returns a data frame consisting of the second and third observations on the variables <code>a</code> and <code>c</code>.</p>
 <p>You can preview a data frame (or vector) using <code>str(dat)</code>, <code>head(dat)</code>, or in the Tidyverse, <code>glimpse(dat)</code>. In RStudio, you can also view a data frame (or any data object) by typing <code>View(dat)</code>, or by double clicking on it in the <em>Environment</em> pane.</p>
 </section>
 </section>
@@ -3737,7 +3737,7 @@ cyl = 8 15.10000 3.999214</code></pre>
 </div>
 </div>
 <p>The above illustrates how <code>lapply</code> can be used in conjunction with <code>get</code> and <code>assign</code> to replicate the functionality provided by the <code>mget</code> and <code>list2env</code> commands. Note that, when we use <code>assign</code> inside a function, we have to specify the environment (as we did when using <code>list2env</code>), which we didn’t have to do when using a loop.</p>
-<p>There are two other functions that are useful for functional programming. Suppose that you wanted to use <code>cbind</code> to join a list of matrices or dataframes. It’s straightforward to do this with a loop (<code>NULL</code> below is a convenient way to define an object which is initially empty):</p>
+<p>There are two other functions that are useful for functional programming. Suppose that you wanted to use <code>cbind</code> to join a list of matrices or data frames. It’s straightforward to do this with a loop (<code>NULL</code> below is a convenient way to define an object which is initially empty):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>big.matrix <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(matrices)) {</span>
@@ -3780,7 +3780,7 @@ cyl = 8 15.10000 3.999214</code></pre>
 <span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data.csv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>By default, the entries in the first row will be interpreted as column headings. The <code>read_csv</code> function is part of the readr package from the Tidyverse. Alternatively, you can use the built-in function <code>read.csv</code>. The advantages of <code>read_csv</code> are that it can be faster and simpler to work with. It stores the data as a “Tibble,” which is a modified data frame (see <em>R for Data Science</em> for a discussion of the differences), while some packages expect a traditional data frame. If you think you’ve run into this problem, you can convert a Tibble to a data frame using <code>d &lt;- data.frame(d)</code>.</p>
-<p>You can save a dataframe (or matrix) as a csv using the command <code>write_csv(d, &quot;filename.csv&quot;)</code>. Alternatively, you can use the built-in command <code>write.csv</code>.</p>
+<p>You can save a data frame (or matrix) as a csv using the command <code>write_csv(d, &quot;filename.csv&quot;)</code>. Alternatively, you can use the built-in command <code>write.csv</code>.</p>
 <p>You can read Excel files using the <code>read_excel</code> command from the readxl package. The basic syntax is</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;data.xlsx&quot;</span>, <span class="at">sheet=</span><span class="st">&quot;Sheet1&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
