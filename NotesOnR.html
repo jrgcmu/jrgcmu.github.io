@@ -3464,7 +3464,7 @@ r3  3  6  9</code></pre>
 <h2 class="anchored" data-anchor-id="programming-tools">Programming tools</h2>
 <section id="functions" class="level3">
 <h3 class="anchored" data-anchor-id="functions">Functions</h3>
-<p>You can extend it by writing your own functions. For example, suppose that you are working with the <code>mtcars</code> dataset (which comes with R and contains characteristics of different cars), and you want to know how average milage changes with the number of cylinders a car has. While there are built-in functions to handle this kind of thing, you could can also write your own:</p>
+<p>You can extend it by writing your own functions. For example, suppose that you are working with the <code>mtcars</code> dataset (which comes with R and contains characteristics of different cars), and you want to know how average milage changes with the number of cylinders a car has. While there are built-in functions to handle this kind of thing, you can also write your own:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>cyl.mean.mpg <span class="ot">&lt;-</span> <span class="cf">function</span>(cylinders) {</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(mtcars[mtcars<span class="sc">$</span>cyl<span class="sc">==</span>cylinders, ]<span class="sc">$</span>mpg)</span>
