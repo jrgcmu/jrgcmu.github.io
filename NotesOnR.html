@@ -3375,7 +3375,7 @@ Levels: 1 2 3</code></pre>
 [2,]    2    4</code></pre>
 </div>
 </div>
-<p>You can create an <span class="math inline">\(n \times k\)</span> matrix of zeros using <code>matrix(0, n, k)</code> or an <span class="math inline">\(n \times n\)</span> identity matrix using <code>diag(n)</code>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> You can refer to the elements of a matrix using, e.g., <code>g[1, 2]</code> or a submatrix using <code>g[1:2, 2]</code>. You can name the rows of a matrix using <code>rownames</code> and the columns using <code>colnames</code>:</p>
+<p>You can create an <span class="math inline">\(n \times k\)</span> matrix of zeros using <code>matrix(0, n, k)</code> or an <span class="math inline">\(n \times n\)</span> identity matrix using <code>diag(n)</code>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> You can refer to the elements of a matrix using, e.g., <code>g[1, 2]</code> or a submatrix using <code>g[1:2, 2]</code> (the first entry is the row, the second is the column). You can name the rows of a matrix using <code>rownames</code> and the columns using <code>colnames</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">nrow =</span> <span class="dv">3</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(h) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;r1&quot;</span>, <span class="st">&quot;r2&quot;</span>, <span class="st">&quot;r3&quot;</span>)</span>
@@ -3462,7 +3462,7 @@ r3  3  6  9</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(a, b, c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Since a data frame is a list, you can subset it using the same rules as for lists. For example, <code>dat[&quot;a&quot;]</code> returns a data frame consisting of only the variable <code>a</code>, while <code>dat[[&quot;a&quot;]]</code> and <code>dat$a</code> return the variable (vector) <code>a</code> itself. You can also subset data frames like matrices, so <code>dat[2:3, c(&quot;a&quot;, &quot;c&quot;)]</code> returns a data frame consisting of the second and third observations on the variables <code>a</code> and <code>c</code>.</p>
+<p>Since a data frame is a list, you can subset it using the same rules as for lists. For example, <code>dat[&quot;a&quot;]</code> returns a data frame consisting of only the variable <code>a</code>, while <code>dat[[&quot;a&quot;]]</code> and <code>dat$a</code> return the variable (vector) <code>a</code> itself. You can also subset data frames like matrices, so <code>dat[2:3, c(&quot;a&quot;, &quot;c&quot;)]</code> returns a data frame consisting of the second and third observations on the variables <code>a</code> and <code>c</code>. You can also subset data frames (and matrices) according to a condition: <code>dat[dat$a&lt;1,]</code> will return the elements of <code>dat</code> where the variable <code>a</code> is less than one.</p>
 <p>You can preview a data frame (or vector) using <code>str(dat)</code>, <code>head(dat)</code>, or in the Tidyverse, <code>glimpse(dat)</code>. In RStudio, you can also view a data frame (or any data object) by typing <code>View(dat)</code>, or by double clicking on it in the <em>Environment</em> pane.</p>
 </section>
 </section>
@@ -3484,7 +3484,7 @@ r3  3  6  9</code></pre>
 <pre><code>[1] 19.74286</code></pre>
 </div>
 </div>
-<p>This example shows another way to subset dataframes/matrices: <code>mtcars[mtcars$cyl==cylinders, ]</code> returns all rows from <code>mtcars</code> where <code>cyl</code> takes the value <code>cylinders</code>. Note that we use the double equals sign “<code>==</code>” when checking whether a condition holds (when evaluating a character variable, we put the condition in quotes, as in <code>char.var == &quot;a&quot;</code>).</p>
+<p>Note that we use the double equals sign “<code>==</code>” when checking whether a condition holds (when evaluating a character variable, we put the condition in quotes, as in <code>char.var == &quot;a&quot;</code>).</p>
 <p>This illustrates the basic use of <code>function</code>, but there are a few ways that we can make our function more useful. R functions can accept multiple inputs. And while by default they return the last object created, we can also specify what we want the function to return, which can be a scalar, vector, matrix or list.</p>
 <p>Here is a somewhat more complex version of our function:</p>
 <div class="cell">
