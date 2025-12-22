@@ -378,8 +378,7 @@ first entry
 expression using <code>`: expression&#39;</code> as well as the macro
 contained in the expression.</p>
 <p>You can also evaluate mathematical expressions involving macros,
-either when defining new macros, or when dereferencing them (in the
-following, we could also use <code>local n3 =  `n1&#39; + `n2&#39;</code>):</p>
+either when defining new macros, or when dereferencing them:</p>
 <pre class='stata'>. local n1 1
 
 . local n2 2
@@ -389,9 +388,26 @@ following, we could also use <code>local n3 =  `n1&#39; + `n2&#39;</code>):</p>
 . di `n3'
 3
 
-. di `=`n1' + `n2''
+. di "`n3'"
+1 + 2
+
+. di `n1' + `n2'
+3
+
+. di "`n1' + `n2'"
+1 + 2
+
+. di "`=`n1' + `n2''"
 3
 </pre>
+<p>In the above, note that when we use <code>di `n3&#39;</code>, we get the
+result, while when we use <code>di &quot;`n3&#39;&quot;</code>, we get an expression.
+This is because Stata doesn’t <em>evaluate</em> the macro until
+necessary, and it doesn’t think it’s necessary when the macro is part of
+a string. Using an equals sign when defining the macro:
+<code>n3 = `n1&#39; + `n2&#39;</code> would cause Stata to evaluate the macro
+before storing it, so that both <code>di</code> commands would return
+the result.</p>
 <p>There are also <em>global macros</em> which are defined using
 <code>global macroname contents</code> and dereferenced using
 <code>$macroname</code>. Roughly speaking, the difference between local
