@@ -395,8 +395,10 @@ until necessary, so <code>di `n3&#39;</code> returns <code>3</code>, but
 evaluate the macro when it’s part of a string. You can override this by
 defining the macro using <code>local n3 = `n1&#39; + `n2&#39;</code> (which will
 save the macro as its evaluated value). Similarly,
-<code>di &quot;`n3`&quot;</code> will return <code>1 + 2</code> while
-<code>di `=`n1&#39; + `n2&#39;&#39;</code> will return <code>3</code>.</p>
+<code>di &quot;`n3&#39;&quot;</code> will return <code>1 + 2</code> while
+<code>di &quot;`=`n1&#39; + `n2&#39;&#39;&quot;</code> will return <code>3</code>
+(<code>di `n1&#39; + `n2&#39;</code> will return <code>3</code> no matter
+what).</p>
 <p>There are also <em>global macros</em> which are defined using
 <code>global macroname contents</code> and dereferenced using
 <code>$macroname</code>. Roughly speaking, the difference between local
