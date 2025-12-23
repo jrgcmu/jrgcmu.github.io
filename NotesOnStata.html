@@ -377,8 +377,8 @@ first entry
 <p>Note that in the third and fourth lines we dereference the macro
 expression using <code>`: expression&#39;</code> as well as the macro
 contained in the expression.</p>
-<p>You can also evaluate mathematical expressions involving macros,
-either when defining new macros, or when dereferencing them:</p>
+<p>You can also <em>evaluate</em> mathematical expressions involving
+macros, either when defining new macros, or when dereferencing them:</p>
 <pre class='stata'>. local n1 1
 
 . local n2 2
@@ -387,27 +387,16 @@ either when defining new macros, or when dereferencing them:</p>
 
 . di `n3'
 3
-
-. di "`n3'"
-1 + 2
-
-. di `n1' + `n2'
-3
-
-. di "`n1' + `n2'"
-1 + 2
-
-. di "`=`n1' + `n2''"
-3
 </pre>
-<p>In the above, note that when we use <code>di `n3&#39;</code>, we get the
-result, while when we use <code>di &quot;`n3&#39;&quot;</code>, we get an expression.
-This is because Stata doesn’t <em>evaluate</em> the macro until
-necessary, and it doesn’t think it’s necessary when the macro is part of
-a string. Using an equals sign when defining the macro:
-<code>n3 = `n1&#39; + `n2&#39;</code> would cause Stata to evaluate the macro
-before storing it, so that both <code>di</code> commands would return
-the result.</p>
+<p>One subtlety is that Stata does’t evaluate the macro <code>n3</code>
+until necessary, so <code>di `n3&#39;</code> returns <code>3</code>, but
+<code>di &quot;`n3&#39;&quot;</code> returns <code>1 + 2</code>, because that is how
+<code>n3</code> is stored, and Stata doesn’t think it’s necessary to
+evaluate the macro when it’s part of a string. You can override this by
+defining the macro using <code>local n3 = `n1&#39; + `n2&#39;</code> (which will
+save the macro as its evaluated value). Similarly,
+<code>di &quot;`n3`&quot;</code> will return <code>1 + 2</code> while
+<code>di `=`n1&#39; + `n2&#39;&#39;</code> will return <code>3</code>.</p>
 <p>There are also <em>global macros</em> which are defined using
 <code>global macroname contents</code> and dereferenced using
 <code>$macroname</code>. Roughly speaking, the difference between local
