@@ -1134,10 +1134,10 @@ statistics, including the <code>dtable</code>, <code>table</code> and
 <code>collect</code> commands in more recent versions of Stata and the
 <code>outreg2</code> and <code>tabstat</code> packages (see German
 Rodriguez’s tutorial for a nice introduction to the <code>dtable</code>
-and <code>etable</code> approaches). I usually find that, unless they
-are very simple, descriptive and regression tables need manual editing,
-so I just try to get the statistics into Excel so that I can format
-them, then export them from there.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+and <code>table</code> approaches). I usually find that, unless they are
+very simple, descriptive and regression tables need manual editing, so I
+just try to get the statistics into Excel so that I can format them,
+then export them from there.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
 <p>Here’s how you can use <code>outreg2</code> (which is simple and
 works with any version of Stata) to get basic descriptives (overall, and
 by group; we need to clear saved estimates or they’ll be included in the
@@ -1639,7 +1639,7 @@ after the first model):</p>
 <pre><code>local replace replace
 foreach y of varlist y1 y2 y3 {
   qui reg `y&#39; x*
-  outreg2 using results2.txt, `replace`
+  outreg2 using results2.txt, `replace&#39;
   local replace
 }</code></pre>
 <p>Some other useful regression commands that you should be aware of
