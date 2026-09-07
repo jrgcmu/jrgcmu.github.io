@@ -483,7 +483,8 @@ numbers are even (<code>mod(a, 2)</code> is the remainder after dividing
 4 is even
 </pre>
 <p>The syntax <code>local ++i</code> is a shorthand for
-<code>local i = `i&#39;+1</code>.</p>
+<code>local i = `i&#39;+1</code>. Note that we use <code>==</code> when
+checking whether a condition is met.</p>
 <p>Here’s a helpful little trick to avoid an error when you’re not sure
 if a variable exists in your dataset:</p>
 <pre class='stata'>. capture confirm variable z
@@ -795,8 +796,8 @@ command:</p>
 . replace z1 = 1 if z1==4 | z1==5
 (19 real changes made)
 </pre>
-<p>Note here that
-<code>|&#39; means &quot;or&quot; and that, when checking whether a condition is true, we use</code>==<code>instead of a single equals sign. Alternatively, we can use</code>inlist`:</p>
+<p>Note here that <code>|</code> means “or.” Alternatively, we can use
+<code>inlist</code>:</p>
 <pre><code>replace z1 = 0 if inlist(z1, 1, 2, 3)
 replace z1 = 1 if inlist(z1, 4, 5)</code></pre>
 <p>or <code>recode</code>:</p>
