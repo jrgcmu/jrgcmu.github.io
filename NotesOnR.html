@@ -3261,6 +3261,7 @@ window.Quarto = {
   <li><a href="#visualizing-data" id="toc-visualizing-data" class="nav-link" data-scroll-target="#visualizing-data">Visualizing data</a></li>
   <li><a href="#regression-basics" id="toc-regression-basics" class="nav-link" data-scroll-target="#regression-basics">Regression basics</a></li>
   </ul></li>
+  <li><a href="#programming-your-own-estimator" id="toc-programming-your-own-estimator" class="nav-link" data-scroll-target="#programming-your-own-estimator">Programming your own estimator</a></li>
   <li><a href="#resources-for-more" id="toc-resources-for-more" class="nav-link" data-scroll-target="#resources-for-more">Resources for more</a></li>
   </ul>
 </nav>
@@ -4603,6 +4604,36 @@ Num. obs.    50       50       50
 <li>The ivreg packages handles instrumental variables and two-stage least squares</li>
 </ul>
 </section>
+</section>
+<section id="programming-your-own-estimator" class="level2">
+<h2 class="anchored" data-anchor-id="programming-your-own-estimator">Programming your own estimator</h2>
+<p>R also makes it (relatively) easy to program custom estimators. As a simple example, let’s reproduce the probit model estimated above:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb179"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb179-1"><a href="#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="co"># collect regressors into a matrix</span></span>
+<span id="cb179-2"><a href="#cb179-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, d<span class="sc">$</span>x1, d<span class="sc">$</span>x1<span class="sc">^</span><span class="dv">2</span>, d<span class="sc">$</span>z1<span class="sc">==</span><span class="dv">2</span>, d<span class="sc">$</span>z1<span class="sc">==</span><span class="dv">3</span>, d<span class="sc">$</span>z1<span class="sc">==</span><span class="dv">4</span>, d<span class="sc">$</span>z1<span class="sc">==</span><span class="dv">5</span>)</span>
+<span id="cb179-3"><a href="#cb179-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb179-4"><a href="#cb179-4" aria-hidden="true" tabindex="-1"></a><span class="co"># construct log-likelihood function</span></span>
+<span id="cb179-5"><a href="#cb179-5" aria-hidden="true" tabindex="-1"></a>llf <span class="ot">&lt;-</span> <span class="cf">function</span>(beta) {</span>
+<span id="cb179-6"><a href="#cb179-6" aria-hidden="true" tabindex="-1"></a>  llf <span class="ot">&lt;-</span> d<span class="sc">$</span>y1.bin <span class="sc">*</span> <span class="fu">log</span>(<span class="fu">pnorm</span>(x<span class="sc">%*%</span>beta)) <span class="sc">+</span> </span>
+<span id="cb179-7"><a href="#cb179-7" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span><span class="sc">-</span>d<span class="sc">$</span>y1.bin) <span class="sc">*</span> <span class="fu">log</span>((<span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(x<span class="sc">%*%</span>beta)))</span>
+<span id="cb179-8"><a href="#cb179-8" aria-hidden="true" tabindex="-1"></a>  <span class="sc">-</span><span class="fu">sum</span>(llf)</span>
+<span id="cb179-9"><a href="#cb179-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb179-10"><a href="#cb179-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb179-11"><a href="#cb179-11" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate parameters</span></span>
+<span id="cb179-12"><a href="#cb179-12" aria-hidden="true" tabindex="-1"></a>probit2 <span class="ot">&lt;-</span> <span class="fu">optim</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">7</span>), llf, <span class="at">hessian=</span><span class="cn">TRUE</span>)</span>
+<span id="cb179-13"><a href="#cb179-13" aria-hidden="true" tabindex="-1"></a>probit2<span class="sc">$</span>par</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  0.74682779 -0.16553093 -0.08125626 -0.72537625 -0.24970501 -0.87142988
+[7] -0.54958119</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb181"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb181-1"><a href="#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate standard errors</span></span>
+<span id="cb181-2"><a href="#cb181-2" aria-hidden="true" tabindex="-1"></a>vcov <span class="ot">&lt;-</span> <span class="fu">solve</span>(probit2<span class="sc">$</span>hessian)</span>
+<span id="cb181-3"><a href="#cb181-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(vcov))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4701447 0.2152534 0.1314975 0.6020246 0.5869419 0.5767313 0.6560859</code></pre>
+</div>
+</div>
+<p>There are a few things worth noting in the above. When constructing the log-likelihood function, we use vectorization (as in <code>phi(x%*%beta)</code>) to simultaneously create a vector containing the log-likelihood for all observations, which is much more efficient than looping over individuals. We use the built-in <code>optim</code> function to perform the optimization, which requires us to specify a vector of starting values for the parameters and the function being optimized (we used the <code>hessian=TRUE</code> option to keep the Hessian, which we need to construct standard errors; see <code>help(optim)</code> to learn more about the optimizer). Since <code>optim</code> minimizes by default, our objective function is the negative of the sample log-likelihood function. The results are quite similar to those we obtained using the <code>glm</code> command.</p>
 </section>
 <section id="resources-for-more" class="level2">
 <h2 class="anchored" data-anchor-id="resources-for-more">Resources for more</h2>
