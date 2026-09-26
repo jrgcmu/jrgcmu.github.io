@@ -3260,8 +3260,8 @@ window.Quarto = {
   <li><a href="#summary-statistics" id="toc-summary-statistics" class="nav-link" data-scroll-target="#summary-statistics">Summary statistics</a></li>
   <li><a href="#visualizing-data" id="toc-visualizing-data" class="nav-link" data-scroll-target="#visualizing-data">Visualizing data</a></li>
   <li><a href="#regression-basics" id="toc-regression-basics" class="nav-link" data-scroll-target="#regression-basics">Regression basics</a></li>
-  </ul></li>
   <li><a href="#programming-your-own-estimator" id="toc-programming-your-own-estimator" class="nav-link" data-scroll-target="#programming-your-own-estimator">Programming your own estimator</a></li>
+  </ul></li>
   <li><a href="#resources-for-more" id="toc-resources-for-more" class="nav-link" data-scroll-target="#resources-for-more">Resources for more</a></li>
   </ul>
 </nav>
@@ -4604,9 +4604,8 @@ Num. obs.    50       50       50
 <li>The ivreg packages handles instrumental variables and two-stage least squares</li>
 </ul>
 </section>
-</section>
-<section id="programming-your-own-estimator" class="level2">
-<h2 class="anchored" data-anchor-id="programming-your-own-estimator">Programming your own estimator</h2>
+<section id="programming-your-own-estimator" class="level3">
+<h3 class="anchored" data-anchor-id="programming-your-own-estimator">Programming your own estimator</h3>
 <p>R also makes it (relatively) easy to program custom estimators. As a simple example, let’s reproduce the probit model estimated above:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb179"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb179-1"><a href="#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="co"># collect regressors into a matrix</span></span>
@@ -4634,6 +4633,7 @@ Num. obs.    50       50       50
 </div>
 </div>
 <p>There are a few things worth noting in the above. When constructing the log-likelihood function, we use vectorization (as in <code>phi(x%*%beta)</code>) to simultaneously create a vector containing the log-likelihood for all observations, which is much more efficient than looping over individuals. We use the built-in <code>optim</code> function to perform the optimization, which requires us to specify a vector of starting values for the parameters and the function being optimized (we used the <code>hessian=TRUE</code> option to keep the Hessian, which we need to construct standard errors; see <code>help(optim)</code> to learn more about the optimizer). Since <code>optim</code> minimizes by default, our objective function is the negative of the sample log-likelihood function. The results are quite similar to those we obtained using the <code>glm</code> command.</p>
+</section>
 </section>
 <section id="resources-for-more" class="level2">
 <h2 class="anchored" data-anchor-id="resources-for-more">Resources for more</h2>
